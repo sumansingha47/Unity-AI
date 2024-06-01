@@ -12,6 +12,7 @@ public class EnemyMovement : MonoBehaviour
     public float AwakeDistance = 200f;
     public bool AwareOfPlayer;
     public NavMeshAgent enemyAgent;
+    public bool playerinVision;
 
 
     private void Update() {
@@ -27,7 +28,7 @@ public class EnemyMovement : MonoBehaviour
         } else {
             inSight = false;
         }
-        if(inSight == true && PlayerDistance <= AwakeDistance) {
+        if(inSight == true && PlayerDistance <= AwakeDistance && playerinVision == true) {
             AwareOfPlayer = true;
         }
 
@@ -38,6 +39,18 @@ public class EnemyMovement : MonoBehaviour
 
     void drawRay()
     {
-        
+        Vector3 playerDirection = target.position - transform.position;
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, playerDirection, out hit))
+        {
+            if(hit.transform.tag == "Player")
+            {
+                playerinVision = true;
+            }
+            else
+            {
+                playerinVision = false;
+            }
+        }
     }
 }

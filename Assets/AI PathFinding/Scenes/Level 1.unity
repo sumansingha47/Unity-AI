@@ -656,6 +656,7 @@ MonoBehaviour:
   AwakeDistance: 200
   AwareOfPlayer: 0
   enemyAgent: {fileID: 1117209259}
+  playerinVision: 0
 --- !u!1 &1446760302
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,7 +882,7 @@ GameObject:
   - component: {fileID: 1615216013}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -989,7 +990,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 5
   rotationSpeed: 100
-  forcePower: 100
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
