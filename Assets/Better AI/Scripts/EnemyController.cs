@@ -18,7 +18,59 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         currentWaypoint = waypoints[Random.Range(0, waypoints.Count)];
-        StartCoroutine(PatrolState());
+        ChangeState(AISTATE.PATROL);
+    }
+
+    public void ChangeState(AISTATE newState)
+    {
+        StopAllCoroutines();
+        enemyState = newState;
+
+        switch (enemyState)
+        {
+            case AISTATE.PATROL:
+                StartCoroutine(PatrolState());
+                break;
+            case AISTATE.CHASE:
+                StartCoroutine(ChaseState());
+                break;
+            case AISTATE.ATTACK:
+                StartCoroutine(AttackState());
+                break;
+        }
+    }
+
+    public IEnumerator ChaseState()
+    {
+        while(enemyState == AISTATE.CHASE)
+        {
+            if(Vector3.Distance(transform.position, player.position) < distanceOffset)
+            {
+                ChangeState(AISTATE.ATTACK);
+                yield break;
+            }
+
+            enemy.SetDestination(player.position);
+            yield return null;
+        }
+
+    }
+
+    public IEnumerator AttackState()
+    {
+        while (enemyState == AISTATE.ATTACK)
+        {
+            if(Vector3.Distance(transform.position, player.position) > distanceOffset)
+            {
+                ChangeState(AISTATE.CHASE);
+                yield break;
+            }
+            
+            print("Attack");
+            enemy.SetDestination(player.position);
+            yield return null;
+        }
+        yield break;
     }
 
 
@@ -33,6 +85,14 @@ public class EnemyController : MonoBehaviour
                 currentWaypoint = waypoints[Random.Range(0, waypoints.Count)];
             }
             yield return null;
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            ChangeState(AISTATE.CHASE);
         }
     }
 
