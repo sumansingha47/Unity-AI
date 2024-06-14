@@ -9,6 +9,7 @@ public class PlayerAnimation : MonoBehaviour
     public bool isRunning = false;
     public bool isRunBack = false;
     public bool isJumping = false;
+    public bool isMagicAttack = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,10 +23,12 @@ public class PlayerAnimation : MonoBehaviour
         isRunning = Input.GetKey(KeyCode.W);
         isRunBack = Input.GetKey(KeyCode.S);
         isJumping = Input.GetKey(KeyCode.Space);
+        isMagicAttack = Input.GetButton("Fire1");
 
         myAnim.SetBool("isRunning", isRunning);
         myAnim.SetBool("isRunBack", isRunBack);
         myAnim.SetBool("isJumping", isJumping);
+        myAnim.SetBool("isMagicAttack", isMagicAttack);
 
         if(Input.GetKey(KeyCode.LeftShift))
         {

@@ -7,9 +7,13 @@ public class FPSShoooterTut : MonoBehaviour
     public Camera cam;
     public GameObject projectile;
     public Transform LHFirePoint, RHFirePoint;
+    public float projectileSpeed = 30;
+    public float fireRate = 4;
 
-    public Vector3 destination;
+    private Vector3 destination;
     private bool leftHand;
+    private float timeToFire;
+
     
     void Start()
     {
@@ -18,8 +22,9 @@ public class FPSShoooterTut : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetButtonDown("Fire1"))
+        if(Input.GetButton("Fire1") && Time.time >= timeToFire)
         {
+            timeToFire = Time.time + 1/fireRate;
             ShootProjectTile();
         }
     }
@@ -48,6 +53,7 @@ public class FPSShoooterTut : MonoBehaviour
     void InstantiateProjectile(Transform firePoint)
     {
         var projectileObj = Instantiate(projectile, firePoint.position, Quaternion.identity) as GameObject;
+        projectileObj.GetComponent<Rigidbody>().velocity = (destination - firePoint.position).normalized * projectileSpeed;
 
     }
 }
