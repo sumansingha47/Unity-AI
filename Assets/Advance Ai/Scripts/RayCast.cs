@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RayCastShoot : MonoBehaviour
 {
-    public Camera camera;
+    public new Camera camera;
     public float FireRate = 10f;
     public float timeBetweenNextShot;
 

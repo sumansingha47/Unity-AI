@@ -10,10 +10,15 @@ public class Player : MonoBehaviour
    [SerializeField] float jumpForce = 10f;
    bool isGrounded = false;
 
+   // Variables for mouse controll
+    public Vector2 turn;
+    public float sensitivity = 0.5f;
+
    Rigidbody rb;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -22,7 +27,12 @@ public class Player : MonoBehaviour
         movePlayer();
         rotatePlayer();
         addForceToPlayer();
-        JumpPlayer();   
+        JumpPlayer();
+
+        //Mouse Controll System
+        turn.x += Input.GetAxis("Mouse X") * sensitivity;
+        turn.y += Input.GetAxis("Mouse Y") * sensitivity;
+        transform.localRotation = Quaternion.Euler(-turn.y, turn.x, 0);
     }
 
     void OnCollisionEnter(Collision other)
@@ -39,6 +49,11 @@ public class Player : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+
+    void MouseControllSystem()
+    {
+
     }
 
     void movePlayer()
