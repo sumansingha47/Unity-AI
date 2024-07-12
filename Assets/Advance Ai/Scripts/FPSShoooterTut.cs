@@ -16,11 +16,6 @@ public class FPSShoooterTut : MonoBehaviour
     private bool leftHand;
     private float timeToFire;
 
-    
-    void Start()
-    {
-        
-    }
 
     void Update()
     {
